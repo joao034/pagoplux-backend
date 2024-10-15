@@ -9,7 +9,7 @@ export class AuthController{
         const { username, password } = req.body;
 
         if( !username || !password ) {
-            throw new CustomError( )
+            res.status(400).json({ error: 'Username and password are required!'})
             return;
         }
 
@@ -25,15 +25,15 @@ export class AuthController{
     static async register( req: Request, res: Response ){
         const { username, password } = req.body;
 
-        try {
-            
-        if( !username || !password ) {
+         if( !username || !password ) {
             res.status(400).json( { message: 'Username and password are required!' });
             return;
         }
-            const newUser = await UserService.registerUser(username, password);
 
+        try {
+            const newUser = await UserService.registerUser(username, password);
             res.status(201).json(newUser);
+
         } catch (error) {
             handleError( error, res );
         }
