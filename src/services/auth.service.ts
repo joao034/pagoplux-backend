@@ -1,6 +1,7 @@
-import { bcryptAdapter } from "../helpers/adapters/";
-import { CustomError } from "../helpers/errors/custom.error";
-import User from "../models/user.model";
+import { bcryptAdapter } from "../helpers/adapters";
+import { CustomError } from "../helpers/errors";
+import { User } from "../models/";
+import jwt from 'jsonwebtoken';
 
 export class UserService{
 
@@ -9,9 +10,12 @@ export class UserService{
         if ( !user ) throw CustomError.badRequest('Username not exist!');
 
         const isMatch = bcryptAdapter.compare( password, user.password );
-        if( !isMatch ) throw CustomError.badRequest('Password is not valid');
+        if( !isMatch ) throw CustomError.badRequest('Password is incorrect');
 
-        return user;
+        return { 
+            userId: user.id, 
+            username: user.username 
+        };
     }
 
     static async registerUser( username: string, password: string ){

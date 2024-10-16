@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { UserService } from "../services/auth.service";
-import { CustomError, handleError } from "../helpers/errors";
+import { UserService } from "../services/";
+import { handleError } from "../helpers/errors";
 
 export class AuthController{
 
