@@ -1,6 +1,8 @@
+import { TransactionResponse } from "../interfaces";
+
 export class TransactionService {
 
-  static async getTransactionByIdFromPagoPlux(id: string) {
+  static async getTransactionByIdFromPagoPlux(id: string) : Promise<TransactionResponse> {
 
     const pagopluxApiURL = process.env.PAGOPLUX_API_URL;
     const clientId = process.env.CLIENT_ID;

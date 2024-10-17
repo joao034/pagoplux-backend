@@ -7,10 +7,10 @@ export class UserService{
 
     static async loginUser ( username: string, password: string ) {
         const user = await User.findOne( { username } );
-        if ( !user ) throw CustomError.badRequest('Username not exist!');
+        if ( !user ) throw CustomError.badRequest('El usuario no existe!');
 
         const isMatch = bcryptAdapter.compare( password, user.password );
-        if( !isMatch ) throw CustomError.badRequest('Password is incorrect');
+        if( !isMatch ) throw CustomError.badRequest('Contraseña incorrecta');
 
         return { 
             userId: user.id, 
@@ -21,7 +21,7 @@ export class UserService{
     static async registerUser( username: string, password: string ){
 
         const existUser = await User.findOne( { username } );
-        if( existUser ) throw CustomError.badRequest('User already exist');
+        if( existUser ) throw CustomError.badRequest('El usuario ya existe');
 
         try {
             const hashedPassword = bcryptAdapter.hash(password);
